@@ -1,0 +1,47 @@
+﻿.head{
+
+  font-size:32px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  text-align: center;
+
+}
+
+.mainGroups{
+
+    text-align:center;
+    border-style:double;
+    border-color:black;
+    border-radius: 16px;
+}
+
+.listItem{
+
+    font-size:20px;
+}
+.pageImages{
+
+    border-radius: 10px;
+    width:auto;
+    height:auto;
+    text-align:center;
+     
+}
+.headLineText{
+
+ 
+    font-size: 40px;
+    position:relative;
+    
+    text-align:center;
+    
+}
+
+.mainPage{
+
+  background: #000;
+  background-image: url("Images/Movie-camera-film-camera-clip-art.png");/*Image Source http://clipartix.com/movie-camera-clip-art-image-42297/*/
+  background-size:cover; 
+  width: 100%;
+  height: 100%;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}

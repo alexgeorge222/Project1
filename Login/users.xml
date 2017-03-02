@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<userList>
+  <ActiveUser>
+    <user>Alex George</user>
+    <login>amg215</login>
+    <password>philConners</password>
+  </ActiveUser>
+  <ActiveUser>
+    <user>Bill Murray</user>
+    <login>murray4Ev</login>
+    <password>stripes</password>
+  </ActiveUser>
+</userList>

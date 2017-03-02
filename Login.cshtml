@@ -1,0 +1,103 @@
+﻿@using System;
+@using System.Data;
+@using System.Xml;
+@using System.IO;
+
+@{
+
+    string loginSuccess = null;
+    string login = Request["inputLogin"];
+    string password = Request["InsertPassword"];
+    int messageVisable = 0;
+    if (IsPost)
+    {
+        if(login != null && password !=null)
+        {
+            XmlDocument loginDoc = new XmlDocument();
+            loginDoc.Load("C:/Users/alexg/OneDrive/Documents/Visual Studio 2015/WebSites/Project1/Login/users.xml");
+            XmlNodeList elemList = loginDoc.GetElementsByTagName("login");
+            for(int i = 0; i < elemList.Count; i++)
+            {
+                string text = (elemList[i].InnerXml);
+                if (text.Equals(login))
+                {
+                    XmlNodeList elemListPass = loginDoc.GetElementsByTagName("password");
+                    if (password.Equals(elemListPass[i].InnerXml))
+                    {
+                        loginSuccess = "You've been Logged In!";
+                        messageVisable = 1;
+
+                    }
+                }
+            }
+
+            if(messageVisable == 1)
+            {
+                loginSuccess = "You've been Logged In!";
+            }
+            else
+            {
+                loginSuccess = "User has typed an incorrectusername or password";
+            }
+            
+            
+
+
+        }
+
+
+
+    }
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="~/Scripts/jqueryMobile/jquery.mobile-1.4.5.css" />
+    <link rel="stylesheet" href="~/Style/cssStyle.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jqueryMobile/jquery.mobile-1.4.5.js"></script>
+    <script src="~/Scripts/jqueryMobile/jquery.mobile-1.4.5.min.js"></script>
+    <title>Welcome To Another Random Movie Site!</title>
+</head>
+<body>
+
+    <div data-role="page" data-theme="b" class="mainPage">
+        <div data-role="header" class="head">
+            <h1><b>A Very Special Movie Site</b></h1><a href="~/Default.cshtml" data-icon="home" class="ui-btn-left">Home</a>
+            <div data-role="navbar">
+                <ul>
+                    <li><h3 class="listItem"><a href="~/News.cshtml">News</a></h3></li>
+                    <li><h3 class="listItem"><a>Reviews(Coming Soon!)</a></h3></li>
+                    <li><h3 class="listItem"><a href="~/Articles.cshtml">Very Smart Articles</a></h3></li>
+                </ul>
+            </div>
+        </div>
+
+        <div data-role="content">
+            <form method="post">
+                <label for="loginText">Login</label>
+                <div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear">
+                    <input type="text"  id="inputLogin" name="inputLogin" placeholder="Insert Login Name">
+                   
+                </div>
+                <label for="passwordText">Password</label>
+                <div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear">
+                    <input type="password"  id="InsertPassword" name="InsertPassword" placeholder="Insert Password">
+                   
+                </div>
+                <input type="submit" value="Login" >
+            </form>
+            <p style="text-align:center">@loginSuccess</p>
+
+
+        </div>
+
+
+
+
+    </div>
+</body>
+</html>

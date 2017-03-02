@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="~/Scripts/jqueryMobile/jquery.mobile-1.4.5.css" />
+    <link rel="stylesheet" href="~/Style/cssStyle.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jqueryMobile/jquery.mobile-1.4.5.js"></script>
+    <script src="~/Scripts/jqueryMobile/jquery.mobile-1.4.5.min.js"></script>
+    <title>Welcome To Another Random Movie Site!</title>
+</head>
+<body>
+
+    <div data-role="page" data-theme="b" class="mainPage">
+        <div data-role="header" class="head">
+            <h1><b>A Very Special Movie Site</b></h1><a href="~/Login.cshtml" data-icon="gear" class="ui-btn-right">Login</a>
+            <div data-role="navbar">
+                <ul>
+                    <li><h3 class="listItem"><a href="~/News.cshtml">News</a></h3></li>
+                    <li><h3 class="listItem"><a>Reviews (Coming Soon!)</a></h3></li>
+                    <li><h3 class="listItem"><a href="~/Articles.cshtml">Very Smart Articles</a></h3></li>
+                </ul>
+            </div>
+        </div>
+
+        <div data-role="content">
+            <div class="mainGroups">
+                <p style="text-align: left">TOP STORIES</p>
+                <img class="pageImages" src="~/Style/Images/oscar_recap_0227.jpg" /><!--Image source https://espnfivethirtyeight.files.wordpress.com/2017/02/oscar_recap_0227.jpg?quality=90&strip=all&w=575&ssl=1-->  
+                <div class="headLineText"><a href="~/News.cshtml">OSCARS 2017</a></div>
+            </div>
+            <div class="mainGroups">
+                <p style="text-align: left">LATEST ARTICLES</p>
+                <img class="pageImages" src="~/Style/Images/seven_veljohnson_00.jpg" /><!--Image source http://www.millionaireplayboy.com/mpb/wp-content/uploads/2010/09/seven_veljohnson_00.jpg-->
+                <div class="headLineText"><a href="~/Articles.cshtml">Could Social Justice Warriors Be The Dutch Elm Disease Of Hollywood?</a></div>
+            </div>
+            <div data-role="collapsible" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-info">
+                <h3>Who Are We</h3>
+                <p>We're a website that your friend just posted a link to on some social media platform.</p><p> Probably Twitter. You like your friend, and took a film class in college, and so now you're here!</p><p> Enjoy feeling smart and connected to the issues of today as explored through film!</p>
+            </div>
+            <div data-role="collapsible" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-info">
+                <h3>Our Mission</h3>
+                <p>To update you non-stop with thoughtfully composed think-pieces and non-stop news stories</p><p> that make you feel good for getting that film minor, and play into your need to be angry at everything at all times no matter what it is</p>
+            </div>
+            <div data-role="collapsible" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-info">
+                <h3>Are We Completely Serious</h3>
+                <p>100% of the time, yes</p>
+            </div>
+
+
+        </div>
+
+
+
+
+    </div>
+</body>
+</html>
