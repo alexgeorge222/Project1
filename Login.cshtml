@@ -6,8 +6,12 @@
 @{
 
     string loginSuccess = null;
+    string signUpMessage = "Want to Sign Up?";
     string login = Request["inputLogin"];
     string password = Request["InsertPassword"];
+    string newName = Request["newName"];
+    string newUser = Request["newUser"];
+    string newPassword = Request["NewPass"];
     int messageVisable = 0;
     if (IsPost)
     {
@@ -34,15 +38,46 @@
             if(messageVisable == 1)
             {
                 loginSuccess = "You've been Logged In!";
+                signUpMessage = "";
             }
             else
             {
                 loginSuccess = "User has typed an incorrectusername or password";
+
             }
-            
-            
 
 
+
+
+        }
+        if(newName != null && newUser != null && newPassword != null)
+        {
+
+            XmlDocument loginDoc = new XmlDocument();
+            loginDoc.Load("C:/Users/alexg/OneDrive/Documents/Visual Studio 2015/WebSites/Project1/Login/users.xml");
+            XmlNodeList elemList = loginDoc.GetElementsByTagName("login");
+            for (int i = 0; i < elemList.Count; i++)
+            {
+                string text = (elemList[i].InnerXml);
+                if (text.Equals(login))
+                {
+                    loginSuccess = "User already exists";
+                    messageVisable = 1;
+                    break;
+                }
+
+            }
+            XmlNode userNode = loginDoc.CreateNode("element", "ActiveUsers", "");
+            XmlNode loginNode = loginDoc.CreateNode("element", "login", "");
+            userNode.PrependChild(loginNode);
+            XmlNode passwordNode = loginDoc.CreateNode("element", "password", "");
+            userNode.PrependChild(passwordNode);
+            XmlNode nameNode = loginDoc.CreateNode("element", "user", "");
+            userNode.PrependChild(nameNode);
+
+
+            XmlElement root = loginDoc.DocumentElement;
+            root.AppendChild(userNode);
         }
 
 
@@ -90,14 +125,34 @@
                 </div>
                 <input type="submit" value="Login" >
             </form>
+            <a href="#signUp" style="text-align:center"  data-rel="popup" data-position-to="window" data-transition="pop">@signUpMessage</a>
             <p style="text-align:center">@loginSuccess</p>
 
+           
 
+            <div data-role="popup" id="signUp" data-theme="b">
+                <form method="post">
+                    <div style="padding:15px 20px;">
+                        <h3>Please Enter Your Information:</h3>
+                        <label for="un" class="ui-hidden-accessible"></label>
+                        <input type="text" name="newName" id="newName" value="" placeholder="Enter Name:" data-theme="b">
+                        <label for="un" class="ui-hidden-accessible"></label>
+                        <input type="text" name="newUser" id="newUser" value="" placeholder="Enter a Username:" data-theme="b">
+                        <label for="pw" class="ui-hidden-accessible"></label>
+                        <input type="password" name="newPass" id="newPass" value="" placeholder="Enter a Password:" data-theme="b">
+                        
+                    </div>
+                    <input type="submit" value="Create Account">
+                </form>
+
+
+            </div>
         </div>
 
 
 
 
     </div>
+
 </body>
 </html>
