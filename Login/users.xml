@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <userList>
   <ActiveUser>
     <user>Alex George</user>
@@ -10,4 +10,24 @@
     <login>murray4Ev</login>
     <password>stripes</password>
   </ActiveUser>
+  <ActiveUsers>
+    <user>bob</user>
+    <password>123</password>
+    <login>bob123</login>
+  </ActiveUsers>
+  <ActiveUsers>
+    <user>Dave</user>
+    <password>123</password>
+    <login>Dave123</login>
+  </ActiveUsers>
+  <ActiveUsers>
+    <user>Dave</user>
+    <password>123</password>
+    <login>dsd</login>
+  </ActiveUsers>
+  <ActiveUsers>
+    <user>bob</user>
+    <password>123</password>
+    <login>bob124</login>
+  </ActiveUsers>
 </userList>

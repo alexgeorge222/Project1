@@ -1,0 +1,127 @@
+﻿@using System.Data.SqlClient;
+@using System;
+@{ 
+    string hiddenContent = "hidden";
+    string hiddenMessage = "hidden";
+    string person1 = Request["person1"];
+    string person2 = Request["person2"];
+    string set1 = null;
+    string set2 = null;
+    int i = 1;
+    Random rand = new Random();
+    int[] vapeID = new int[50];
+    string[] vapeName = new string[50];
+    int[] vapeRating = new int[50];
+
+    if (IsPost)
+    {
+
+        SqlConnection connection = new SqlConnection("user id=root;" + "password=Remembersammy1;server=localhost;" + "Trusted_Connection=yes;" + "database=movieVape; " + "connection timeout=30");
+        try
+        {
+            connection.Open();
+        }
+        catch (Exception excetion)
+        {
+            Console.WriteLine(excetion.ToString());
+        }
+        if (person1 == null && person2 == null)
+        {
+
+            try
+            {
+
+                SqlCommand vapeSearch = new SqlCommand("select * from movieVape", connection);
+                SqlDataReader reader = vapeSearch.ExecuteReader();
+                while (reader.Read())
+                {
+                    vapeID[i] = Int32.Parse((reader["idvapeOff"].ToString()));
+                    vapeName[i] = (reader["name"].ToString());
+                    vapeRating[i] = Int32.Parse((reader["rating"].ToString()));
+                    i++;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            int vape1 = rand.Next(1, 30);
+            int vape2 = rand.Next(1, 30);
+            set1 = vapeName[vape1];
+            set2 = vapeName[vape2];
+            hiddenContent = "visable";
+        }
+        else
+        {
+
+            if (person1 == "on")
+            {
+                string winner = set1;
+                for(int x = 1; x < 31; x++)
+                {
+
+                    if (winner == vapeName[x])
+                    {
+
+                        int score = vapeRating[x] +1;
+                        hiddenMessage = "visable";
+                        hiddenContent = "hidden";
+                        SqlCommand scoreUpdate= new SqlCommand("SELECT * FROM movieVape WHERE Name = " + winner, connection);
+                        scoreUpdate.CommandText = "UPDATE movieVape(rating) " + "Values (score)";
+                    }
+                }
+
+            }
+
+        }
+        connection.Close();
+    }
+
+
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="~/Scripts/jqueryMobile/jquery.mobile-1.4.5.css" />
+    <link rel="stylesheet" href="~/Style/cssStyle.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jqueryMobile/jquery.mobile-1.4.5.js"></script>
+    <script src="~/Scripts/jqueryMobile/jquery.mobile-1.4.5.min.js"></script>
+    <title>Welcome To Another Random Movie Site!</title>
+</head>
+<body>
+
+    <div data-role="page" data-theme="b" class="mainPage">
+        <div data-role="header" class="head">
+            <h1><b>A Very Special Movie Site</b></h1><a href="~/Login.cshtml" data-icon="gear" class="ui-btn-right">Login</a><a href="~/Default.cshtml" data-icon="home" class="ui-btn-left">Home</a>
+            <div data-role="navbar">
+                <ul>
+                    <li><h3 class="listItem"><a href="~/News.cshtml">Articles</a></h3></li>
+                    <li><h3 class="listItem"><a href="~/Reviews.cshtml">Reviews</a></h3></li>
+                    <li><h3 class="listItem"><a href="~/Articles.cshtml">Very Smart Articles</a></h3></li>
+                </ul>
+            </div>
+        </div>
+
+        <div data-role="content" style="text-align:center" >
+            <form method="post">
+                <fieldset data-role="controlgroup" data-type="horizontal" style="visibility:@hiddenContent">
+                    <legend>CURRENTLY VAPING!</legend>
+                    <input type="radio" name="person1" id="person1" value="on">
+                    <label for="person1">@set1</label>
+                    <input type="radio" name="person2" id="person2" value="on">
+                    <label for="person2">@set2</label>
+                </fieldset>
+                <input type="submit" value="VAPE!"style="visibility:visible">
+            </form>
+            <div style="visibility:@hiddenMessage text-align:center" >
+                <p></p>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -2,6 +2,7 @@
 @using System.Data;
 @using System.Xml;
 @using System.IO;
+@using System.Web.Mvc
 
 @{
 
@@ -29,6 +30,7 @@
                     if (password.Equals(elemListPass[i].InnerXml))
                     {
                         loginSuccess = "You've been Logged In!";
+                        signUpMessage = "";
                         messageVisable = 1;
 
                     }
@@ -39,6 +41,7 @@
             {
                 loginSuccess = "You've been Logged In!";
                 signUpMessage = "";
+
             }
             else
             {
@@ -46,41 +49,47 @@
 
             }
 
-
-
-
         }
-        if(newName != null && newUser != null && newPassword != null)
+        if (newName != "" && newUser != "" && newPassword != "")
         {
-
+            int noName = 0;
             XmlDocument loginDoc = new XmlDocument();
             loginDoc.Load("C:/Users/alexg/OneDrive/Documents/Visual Studio 2015/WebSites/Project1/Login/users.xml");
             XmlNodeList elemList = loginDoc.GetElementsByTagName("login");
             for (int i = 0; i < elemList.Count; i++)
             {
                 string text = (elemList[i].InnerXml);
-                if (text.Equals(login))
+                if (text.Equals(newUser))
                 {
-                    loginSuccess = "User already exists";
+                    loginSuccess = "Username Already Exists";
                     messageVisable = 1;
-                    break;
+                    noName = 1;
                 }
 
             }
-            XmlNode userNode = loginDoc.CreateNode("element", "ActiveUsers", "");
-            XmlNode loginNode = loginDoc.CreateNode("element", "login", "");
-            userNode.PrependChild(loginNode);
-            XmlNode passwordNode = loginDoc.CreateNode("element", "password", "");
-            userNode.PrependChild(passwordNode);
-            XmlNode nameNode = loginDoc.CreateNode("element", "user", "");
-            userNode.PrependChild(nameNode);
+            if (noName == 0)
+            {
+                XmlNode root = loginDoc.DocumentElement;
+                XmlNode userNode = loginDoc.CreateNode("element", "ActiveUsers", "");
+                XmlNode loginNode = loginDoc.CreateNode("element", "login", "");
+                loginNode.InnerText = newUser;
+                userNode.PrependChild(loginNode);
+                XmlNode passwordNode = loginDoc.CreateNode("element", "password", "");
+                passwordNode.InnerText = newPassword;
+                userNode.PrependChild(passwordNode);
+                XmlNode nameNode = loginDoc.CreateNode("element", "user", "");
+                nameNode.InnerText = newName;
+                userNode.PrependChild(nameNode);
 
 
-            XmlElement root = loginDoc.DocumentElement;
-            root.AppendChild(userNode);
+                root.InsertAfter(userNode, root.LastChild);
+                loginDoc.Save("C:/Users/alexg/OneDrive/Documents/Visual Studio 2015/WebSites/Project1/Login/users.xml");
+                loginSuccess = "You're account has been created!";
+                signUpMessage = "";
+                messageVisable = 1;
+            }
+
         }
-
-
 
     }
 
@@ -105,7 +114,7 @@
             <div data-role="navbar">
                 <ul>
                     <li><h3 class="listItem"><a href="~/News.cshtml">News</a></h3></li>
-                    <li><h3 class="listItem"><a>Reviews(Coming Soon!)</a></h3></li>
+                    <li><h3 class="listItem"><a href="~/Reviews.cshtml">Reviews</a></h3></li>
                     <li><h3 class="listItem"><a href="~/Articles.cshtml">Very Smart Articles</a></h3></li>
                 </ul>
             </div>
